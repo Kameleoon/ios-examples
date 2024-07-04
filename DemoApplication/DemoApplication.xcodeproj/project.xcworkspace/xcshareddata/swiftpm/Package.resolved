@@ -1,0 +1,15 @@
+{
+  "originHash" : "8a37fe31521e29b1c6636ca97fbfe67b4cd6bf2bf6203ee8ba74a00e81ee3a1a",
+  "pins" : [
+    {
+      "identity" : "client-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kameleoon/client-swift.git",
+      "state" : {
+        "revision" : "d4ceee37d48942feeb38decb59fc645aa990ea65",
+        "version" : "4.3.0"
+      }
+    }
+  ],
+  "version" : 3
+}
