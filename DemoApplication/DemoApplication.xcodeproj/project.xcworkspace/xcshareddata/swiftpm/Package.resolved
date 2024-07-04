@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kameleoon/client-swift.git",
       "state" : {
-        "revision" : "d4ceee37d48942feeb38decb59fc645aa990ea65",
-        "version" : "4.3.0"
+        "revision" : "011dc623cd33077e1980b412cdf62317b9425a26",
+        "version" : "4.4.0"
       }
     }
   ],

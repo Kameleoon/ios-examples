@@ -12,8 +12,8 @@
 		2A626AC82C0990A500AC38A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A626AC72C0990A500AC38A9 /* Assets.xcassets */; };
 		2A626ACB2C0990A500AC38A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A626ACA2C0990A500AC38A9 /* Preview Assets.xcassets */; };
 		2AA7A55E2C0996730096EEF7 /* SDKViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA7A55D2C0996730096EEF7 /* SDKViewModel.swift */; };
-		2AA7A5612C09977E0096EEF7 /* kameleoonClient in Frameworks */ = {isa = PBXBuildFile; productRef = 2AA7A5602C09977E0096EEF7 /* kameleoonClient */; };
 		2AA7A5682C0D82440096EEF7 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA7A5672C0D82440096EEF7 /* Params.swift */; };
+		2AE2F58D2C36C896006EDB70 /* kameleoonClient in Frameworks */ = {isa = PBXBuildFile; productRef = 2AE2F58C2C36C896006EDB70 /* kameleoonClient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AA7A5612C09977E0096EEF7 /* kameleoonClient in Frameworks */,
+				2AE2F58D2C36C896006EDB70 /* kameleoonClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +108,7 @@
 			);
 			name = StarterKit;
 			packageProductDependencies = (
-				2AA7A5602C09977E0096EEF7 /* kameleoonClient */,
+				2AE2F58C2C36C896006EDB70 /* kameleoonClient */,
 			);
 			productName = StarterKit;
 			productReference = 2A626AC02C0990A300AC38A9 /* StarterKit.app */;
@@ -139,7 +139,7 @@
 			);
 			mainGroup = 2A626AB72C0990A300AC38A9;
 			packageReferences = (
-				2AA7A55F2C09977E0096EEF7 /* XCRemoteSwiftPackageReference "client-swift" */,
+				2AE2F58B2C36C896006EDB70 /* XCRemoteSwiftPackageReference "client-swift" */,
 			);
 			productRefGroup = 2A626AC12C0990A300AC38A9 /* Products */;
 			projectDirPath = "";
@@ -312,7 +312,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,7 +342,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,20 +380,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2AA7A55F2C09977E0096EEF7 /* XCRemoteSwiftPackageReference "client-swift" */ = {
+		2AE2F58B2C36C896006EDB70 /* XCRemoteSwiftPackageReference "client-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kameleoon/client-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.3.0;
+				minimumVersion = 4.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2AA7A5602C09977E0096EEF7 /* kameleoonClient */ = {
+		2AE2F58C2C36C896006EDB70 /* kameleoonClient */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2AA7A55F2C09977E0096EEF7 /* XCRemoteSwiftPackageReference "client-swift" */;
+			package = 2AE2F58B2C36C896006EDB70 /* XCRemoteSwiftPackageReference "client-swift" */;
 			productName = kameleoonClient;
 		};
 /* End XCSwiftPackageProductDependency section */

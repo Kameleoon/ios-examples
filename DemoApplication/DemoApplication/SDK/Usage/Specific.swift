@@ -25,7 +25,7 @@ extension SDKViewModel {
         kameleoonClient.addData(CustomData(id: index, values: params.customDataValue))
         kameleoonClient.flush()
         result = .success(
-            (.ready, "CustomData(index: \(index), value: \(params.customDataValue)) was added and flushed successfully")
+            (.ready, "CustomData(index: \(index), value: '\(params.customDataValue)') was added and flushed successfully")
         )
         log(result)
     }

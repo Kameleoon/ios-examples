@@ -1,84 +1,102 @@
-# Kameleoon .NET Starter Kit
+# Kameleoon iOS Starter Kit
 
-> The Kameleoon .NET Starter Kit demonstrates Kameleoon experimentation and feature flags.
+> The Kameleoon iOS Starter Kit demonstrates Kameleoon experimentation and feature flags.
 
-This repository is home to the Kameleoon starter kit for .NET. Kameleoon is a powerful experimentation and personalization platform for product teams that enables you to make insightful discoveries by testing the features on your roadmap. Discover more at https://kameleoon.com, or see the [developer documentation](https://developers.kameleoon.com).
+This repository is home to the Kameleoon starter kit for iOS. Kameleoon is a powerful experimentation and personalization platform for product teams that enables you to make insightful discoveries by testing the features on your roadmap. Discover more at https://kameleoon.com, or see the [developer documentation](https://developers.kameleoon.com).
 
-## How to use
+## Using the Starter Kit
 
-### Before get started
-
-This starter kit provides quickstart instructions for developers using the [Kameleoon .NET SDK](https://developers.kameleoon.com/feature-management-and-experimentation/web-sdks/csharp-sdk/).
+This starter kit provides quickstart instructions for developers using the [Kameleoon iOS SDK](https://developers.kameleoon.com/feature-management-and-experimentation/mobile-sdks/ios-sdk/).
 
 ### Prerequisites
 
 Make sure you have the following requirements before you get started:
 
 1. A Kameleoon user account. Visit [kameleoon.com](https://www.kameleoon.com/) to learn more.
-2. Have the .NET 7.0 installed (or later).
+2. Ensure Xcode supports iOS version `14.0` (or later).
 
 ### Get started
 
-1. Clone the current repository and move into the directory:
+To get started, follow these steps:
+
+1. Clone the repository and open `StarterKit` in Xcode:
 
 ```bash
-git clone git@github.com:Kameleoon/starter-kit-dotnet.git
-cd start-kit-dotnet
+git clone git@github.com:Kameleoon/ios-examples.git
+open -a Xcode "ios-examples/StarterKit/StarterKit.xcodeproj/"
 ```
 
-2. Set `clientId` / `clientSecret`, `siteCode` in `Program.cs` file:
+2. In the `SDKViewModel.swift` file, set your `siteCode`:
 
-```csharp
-var config = new KameleoonClientConfig("clientId", "clientSecret", topLevelDomain: "localhost");
-var client = KameleoonClientFactory.Create("siteCode", config);
-```
-
-We're using `localhost` as `topLevelDomain` because server will be started locally, if you want to deploy on remote server you should set real `topLevelDomain` value.
-
-3. Run a server locally on `4300` port:
-
-```bash
-dotnet run
+```swift
+private struct Const {
+    static let siteCode = "yourSiteCode" // <---- You should change it to your own siteCode
+    static let refreshInterval = 15
+    static let timeoutInit = 2000
+}
 ```
 
-### Available commands
+3. Run the application.
 
-1. Get list of available feature flag's keys:
-```
-http://localhost:4300/FeatureList
+### Usage
+
+1. Properly setting your siteCode will result in the `SDK Status` section indicating "Ready ✅". If there are any errors, the status will display as "Not Ready 🚫".
+2. Tapping the "Get Variation" button opens a new section displaying the variation result for a visitor.
+
+## How it works
+
+### Initialization
+
+Copy the initialization code snippet found in the `SDKViewModel.swift` file into your own code. Make sure you properly handle the possible exceptions.
+
+```swift
+private func initKameleoonClient() {
+    do {
+        let visitorCode: String? = nil
+        let config = KameleoonClientConfig(refreshIntervalMinute: 15)
+        kameleoonClient = try KameleoonClientFactory.create(
+            siteCode: "yourSiteCode",
+            visitorCode: visitorCode,
+            config: config
+        )
+        kameleoonClient.runWhenReady(timeoutMilliseconds: 2000) { [weak self] ready in
+            // cliens is ready or not ready during timeout
+        }
+    } catch KameleoonError.siteCodeIsEmpty {
+        SDKViewModel.logger.error("Sitecode is empty")
+    } catch KameleoonError.visitorCodeInvalid(let visitorCode) {
+        SDKViewModel.logger.error("Visitor code '\(visitorCode)' is not valid")
+    } catch {
+        // You can ignore all errors above and catch only base if you're not interested in specific reason of error
+        SDKViewModel.logger.error("Unexpected Error: \(error.localizedDescription)")
+    }
+}
 ```
 
-2. Add data for visitor and flush to Kameleoon Data API:
-```
-http://localhost:4300/AddData?index=<index>&value=<value>
+### Visitor code
+
+Visitor code will be randomly generated once and used further, but you can explicitly set the visitor code with following code in `SDKViewModel.swift`:
+
+```swift
+let visitorCode: String? = "UserUUID"
 ```
 
-3. Get active feature flag's for a visitor:
-```
-http://localhost:4300/ActiveFeatures
-```
+### Get variation
 
-4. Check if feature is active for a visitor:
-```
-http://localhost:4300/FeatureActive?featureKey=<featureKey>
-```
+You can get the variation for a visitor with "Get Variation" button in the app. The buttons runs the code in the code snippet below. Make sure you handle the possible exceptions.
 
-5. Get a variation key of assigned variation for a visitor:
-```
-http://localhost:4300/FeatureVariationKey?featureKey=<featureKey>
-```
-
-6. Get a variable value key of assigned variation for a visitor:
-```
-http://localhost:4300/FeatureVariable?featureKey=<featureKey>&variableKey=<variableKey>
-```
-
-7. Get engine tracking code of assigned variation for a visitor:
-```
-http://localhost:4300/EngineTrackingCode?featurekey=<featureKey>
-```
-
-8. Get remote data of a visitor
-```
-http://localhost:4300/RemoteVisitorData
+```swift
+func getVariation() {
+    do {
+        let variationKey = try kameleoonClient.getFeatureVariationKey(featureKey: params.featureKey)
+    } catch KameleoonError.sdkNotReady {
+        // SDK isn't ready
+    } catch KameleoonError.Feature.notFound(let featureKey) {
+        // SDK configuration doesn't contain a feature key
+    } catch KameleoonError.Feature.environmentDisabled(let featureKey, let env) {
+        // Feature key is disabled for certain environment
+    } catch {
+        // You can ignore all errors above and catch only base error, if you're not interested in specific reason of error
+    }
+}
 ```

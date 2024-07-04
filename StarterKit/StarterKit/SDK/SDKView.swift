@@ -11,47 +11,46 @@ struct SDKView: View {
     @ObservedObject var vm: SDKViewModel
     
     var body: some View {
-        NavigationStack {
-            Form {
-                Section(header: Text("SDK")) {
-                    VStack {
-                        HStack {
-                            Text("SDK Status:")
-                            Spacer()
-                            Text(vm.initialization ? "Initialization..."  : (vm.status ? "Ready ✅" : "Not Ready 🚫"))
-                        }
-                        .padding(.vertical, Const.verticalPadding)
+        Form {
+            Section(header: Text("SDK")) {
+                VStack {
+                    HStack {
+                        Text("SDK Status:")
+                        Spacer()
+                        Text(vm.initialization ? "Initialization..."  : (vm.status ? "Ready ✅" : "Not Ready 🚫"))
                     }
+                    .padding(.vertical, Const.verticalPadding)
                 }
-                Section(header: Text("Parameters")) {
-                    VStack {
-                        HStack {
-                            Text("Feature Key:")
-                            TextField("feature key", text: $vm.params.featureKey)
-                                .multilineTextAlignment(.trailing)
-                                
-                        }
-                        .padding(.vertical, Const.verticalPadding)
-                    }
-                }
-                Section {
-                    Button(action: {
-                        vm.getVariation()
-                    }, label: {
-                        VStack(alignment: .center, content: {
-                            Text("Get Varation")
-                                .foregroundColor(.white)
-                        })
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    })
-                    .buttonStyle(BorderedProminentButtonStyle())
-                }
-                .frame(height: Const.buttonHeight)
-                .listRowInsets(.init())
-                getResultView()
             }
-            .navigationTitle("Kameleoon Starter Kit")
+            Section(header: Text("Parameters")) {
+                VStack {
+                    HStack {
+                        Text("Feature Key:")
+                        TextField("feature key", text: $vm.params.featureKey)
+                            .multilineTextAlignment(.trailing)
+                            .autocapitalization(.none)
+                            
+                    }
+                    .padding(.vertical, Const.verticalPadding)
+                }
+            }
+            Section {
+                Button(action: {
+                    vm.getVariation()
+                }, label: {
+                    VStack(alignment: .center, content: {
+                        Text("Get Varation")
+                            .foregroundColor(.white)
+                    })
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                })
+                .background(Color.blue)
+            }
+            .frame(height: Const.buttonHeight)
+            .listRowInsets(.init())
+            getResultView()
         }
+        .navigationTitle("Kameleoon Starter Kit")
     }
     
     func getResultView() -> some View {

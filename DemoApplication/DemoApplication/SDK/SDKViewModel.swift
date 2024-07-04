@@ -13,9 +13,9 @@ import SwiftUI
 class SDKViewModel: ObservableObject {
     
     private struct Const {
-        static let siteCode = "sitecode" // <<---- You should change it to your own siteCode
-        static let refreshInterval = 15
-        static let timeoutInit = 2000
+        static let siteCode = "yourSiteCode" // <---- You should change it to your own siteCode
+        static let refreshInterval = 15 // sdk configuration refresh interval
+        static let timeoutInit = 2000 // timeout for initialization
     }
     
     private static let logger = Logger(
@@ -61,6 +61,7 @@ class SDKViewModel: ObservableObject {
             // if the SDK is already initialized, the method immediately calls the callback
             kameleoonClient.runWhenReady(timeoutMilliseconds: Const.timeoutInit) { [weak self] ready in
                 guard let self else { return }
+                // kameleoonClient is ready or could not be initialized within the set timeout
                 self.status = ready
                 self.initialization = false
                 SDKViewModel.logger.info("SDK is \(ready ? "ready" : "not ready") to use")
@@ -72,7 +73,7 @@ class SDKViewModel: ObservableObject {
             // Provided visitorCode is not valid
             SDKViewModel.logger.error("Visitor code '\(visitorCode)' is not valid")
         } catch {
-            // Base error, usually it should never happen. You can ignore all errors above and catch only base
+            // Base error, usually it should never happen. You can ignore all errors above and catch only base error,
             // if you're not interested in specific reason of error
             SDKViewModel.logger.error("Unexpected Error: \(error.localizedDescription)")
         }
